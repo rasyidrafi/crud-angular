@@ -1,0 +1,16 @@
+.bg-trans-white:hover{
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.bg-trans-white{
+    color: white !important;
+    text-transform: uppercase;
+}
+
+.bg-primary-custom {
+    background: linear-gradient(145deg, rgb(13, 71, 161), rgb(66, 165, 245));;
+}
+
+.bg-white-active {
+    background-color: rgba(255, 255, 255, 0.15);
+}

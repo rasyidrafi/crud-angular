@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary-custom">
+    <div class="container">
+        <a class="navbar-brand" routerLink="/">
+            <img src="assets/icon.png" height="30px">
+            <span class="fw-bold ml-2">Landa Books</span>
+        </a>
+        <button type="button" class="navbar-toggler" (click)="isCollapsed = !isCollapsed"
+        [attr.aria-expanded]="!isCollapsed" aria-controls="nav-collapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div [collapse]="isCollapsed" [isAnimated]="true" class="collapse flex-row-reverse text-center navbar-collapse" id="nav-collapse">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a routerLink="/transaksi" routerLinkActive="bg-white-active" class="btn bg-trans-white mx-1">
+                        Transaksi
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/buku" routerLinkActive="bg-white-active" class="btn bg-trans-white mx-1">
+                        Buku
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/member" routerLinkActive="bg-white-active" class="btn bg-trans-white mx-1">
+                        Member
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/diskon" routerLinkActive="bg-white-active" class="btn bg-trans-white mx-1">
+                        Diskon
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
