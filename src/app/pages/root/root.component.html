@@ -1,0 +1,16 @@
+<alert type="primary" class="text-center">
+    <strong>TRANSAKSI TERAKHIR</strong>
+</alert>
+<app-card-transaksi [isLimit]="true" [tableData]="data" *ngIf="isFetched; else loadingTransaksi"></app-card-transaksi>
+
+<ng-template #loadingTransaksi>
+    <div class="text-primary d-flex align-items-center">
+        <strong>Mengambil Data...</strong>
+        <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+    </div>
+</ng-template>
+
+<hr style="width: 0px;">
+<alert type="success" class="text-center">
+    <strong>BUKU TERBARU</strong>
+</alert>

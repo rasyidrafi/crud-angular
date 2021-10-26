@@ -1,1 +1,8 @@
-<p>transaksi works!</p>
+<app-card-transaksi [tableData]="data" *ngIf="isFetched; else loadingData"></app-card-transaksi>
+
+<ng-template #loadingData>
+    <div class="text-primary d-flex align-items-center">
+        <strong>Mengambil Data...</strong>
+        <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+    </div>
+</ng-template>

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DiskonComponent } from './diskon.component';
+import { AddTransaksiComponent } from './add-transaksi.component';
 
-describe('DiskonComponent', () => {
-  let component: DiskonComponent;
-  let fixture: ComponentFixture<DiskonComponent>;
+describe('AddTransaksiComponent', () => {
+  let component: AddTransaksiComponent;
+  let fixture: ComponentFixture<AddTransaksiComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DiskonComponent ]
+      declarations: [ AddTransaksiComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DiskonComponent);
+    fixture = TestBed.createComponent(AddTransaksiComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

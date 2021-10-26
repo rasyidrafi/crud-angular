@@ -1,14 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TransaksiComponent } from "./pages/transaksi/transaksi.component";
+import { AddTransaksiComponent } from "./pages/add-transaksi/add-transaksi.component";
 import { BukuComponent } from "./pages/buku/buku.component";
-import { DiskonComponent } from "./pages/diskon/diskon.component";
 import { MemberComponent } from "./pages/member/member.component";
+import { RootComponent } from "./pages/root/root.component";
 
 const routes: Routes = [
+  { path: "", component: RootComponent },
   { path: "transaksi", component: TransaksiComponent },
+  { path: "add-transaksi", component: AddTransaksiComponent },
   { path: "buku", component: BukuComponent },
-  { path: "diskon", component: DiskonComponent },
   { path: "member", component: MemberComponent }
 ];
 
