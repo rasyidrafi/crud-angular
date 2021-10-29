@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { DataTablesModule } from "angular-datatables";
 
 import { AlertModule } from 'ngx-bootstrap/alert';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
@@ -15,6 +18,7 @@ import { CardTransaksiComponent } from './components/card/card-transaksi/card-tr
 import { RootComponent } from './pages/root/root.component';
 import { AddTransaksiComponent } from './pages/add-transaksi/add-transaksi.component';
 import { CardBukuComponent } from './components/card/card-buku/card-buku.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -26,15 +30,19 @@ import { CardBukuComponent } from './components/card/card-buku/card-buku.compone
     CardTransaksiComponent,
     RootComponent,
     AddTransaksiComponent,
-    CardBukuComponent,
+    CardBukuComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
+    DataTablesModule,
     BrowserAnimationsModule,
     CollapseModule.forRoot(),
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    ModalModule.forRoot(),
+    SweetAlert2Module.forRoot(),
+    FormsModule, ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

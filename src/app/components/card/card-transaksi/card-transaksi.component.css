@@ -1,8 +1,5 @@
 .limit-height {
     min-height: 156px;
+    max-height: 400px;
     overflow-y: auto;
-}
-
-.table > tbody > tr > td {
-    vertical-align: middle;
 }

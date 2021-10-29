@@ -1,1 +1,8 @@
-<p>buku works!</p>
+<app-card-buku [bukuData]="data" [kategoriData]="kategoriData" *ngIf="isFetched; else loadingData"></app-card-buku>
+
+<ng-template #loadingData>
+    <div class="text-primary d-flex align-items-center">
+        <strong>Mengambil Data...</strong>
+        <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+    </div>
+</ng-template>

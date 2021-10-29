@@ -1,0 +1,17 @@
+.cb {
+    min-height: 156px;
+    overflow-y: auto;
+}
+
+.total-title {
+    border-bottom: solid 2px black;
+}
+
+.limit-tinggi {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.limit-width{
+    max-width: 200px;
+}

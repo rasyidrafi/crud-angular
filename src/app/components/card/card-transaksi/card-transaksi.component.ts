@@ -15,7 +15,7 @@ export class CardTransaksiComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.tableData)
+    // console.log(this.tableData)
   }
 
 }

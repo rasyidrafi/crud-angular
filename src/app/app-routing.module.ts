@@ -8,9 +8,17 @@ import { RootComponent } from "./pages/root/root.component";
 
 const routes: Routes = [
   { path: "", component: RootComponent },
-  { path: "transaksi", component: TransaksiComponent },
-  { path: "add-transaksi", component: AddTransaksiComponent },
-  { path: "buku", component: BukuComponent },
+  {
+    path: "transaksi",
+    children: [
+      { path: "", component: TransaksiComponent },
+      { path: "add", component: AddTransaksiComponent }
+    ]
+  },
+  {
+    path: "buku",
+    component: BukuComponent
+  },
   { path: "member", component: MemberComponent }
 ];
 

@@ -4,9 +4,9 @@
             <div class="text-center text-primary fw-bold">
                 DATA BUKU
             </div>
-            <a routerLink="/add-buku" class="btn btn-primary btn-sm">
+            <button class="btn btn-primary btn-sm" (click)="openModal(addBuku)">
                 + BUKU
-            </a>
+            </button>
         </div>
 
         <div class="table-responsive mt-3">
@@ -15,9 +15,11 @@
                     <tr class="text-primary" style="text-transform: uppercase;">
                         <th class="text-center">No</th>
                         <th>Judul</th>
+                        <th>Kategori</th>
                         <th>Harga</th>
-                        <th>Diskon</th>
-                        <th>Stok</th>
+                        <th class="text-center">Diskon</th>
+                        <th class="text-center">Stok</th>
+                        <th>Tgl Input</th>
                         <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
@@ -26,15 +28,30 @@
                         <tr class="text-info" *ngFor="let buku of bukuData; index as i">
                             <td class="text-center">{{ i + 1}}</td>
                             <td>{{ buku.judul }}</td>
+                            <td>{{ buku.nama_kategori }}</td>
                             <td>{{ formatRp(buku.harga) }}</td>
-                            <td>{{ buku.diskon + "%" }}</td>
-                            <td>{{ buku.stok }}</td>
+                            <td class="text-center" >{{ buku.diskon + "%" }}</td>
+                            <td class="text-center">{{ buku.stok }}</td>
+                            <td>{{ buku.waktu }}</td>
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <button class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                    <button class="btn btn-outline-primary btn-sm"><i class="fa fa-pencil"></i></button>
-                                    <button class="btn btn-outline-success btn-sm"><i class="fa fa-info-circle"></i></button>
-                                  </div>
+                                    <button [swal]="{
+                                        icon: 'warning',
+                                        title: 'Anda Yakin ?',
+                                        text: 'Tindakan ini tidak dapat dibatalkan',
+                                        showDenyButton: true, 
+                                        showConfirmButton: true,
+                                        denyButtonText: 'Batalkan',
+                                        confirmButtonText: 'Confirm'
+                                      }"
+                                      (confirm)="submitDel($event, buku.id)" 
+                                      class="btn btn-outline-danger btn-sm">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                    <button class="btn btn-outline-primary btn-sm">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     </ng-container>
@@ -49,3 +66,41 @@
         </div>
     </div>
 </div>
+
+<ng-template #addBuku>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Tambah Buku</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="addBukuForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label for="input-judul" class="form-label">Judul Buku</label>
+                <input type="text" class="form-control" id="input-judul" placeholder="Tere Liye" required formControlName="judul">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Kategori</label>
+                <select formControlName="id_kategori" class="form-control">
+                    <option *ngFor="let kategori of kategoriData; index as i" value="{{ kategori.id }}">
+                        {{ kategori.nama_kategori }}
+                    </option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="input-harga" class="form-label">Harga Satuan</label>
+                <input type="number" class="form-control" id="input-harga" placeholder="Rp. 1000" required formControlName="harga">
+            </div>
+            <div class="mb-3">
+                <label for="input-diskon" class="form-label">Diskon Barang</label>
+                <input type="number" class="form-control" id="input-diskon" placeholder="0%" formControlName="diskon">
+            </div>
+            <div class="mb-3">
+                <label for="input-stok" class="form-label">Stok</label>
+                <input type="number" class="form-control" id="input-stok" formControlName="stok">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</ng-template>

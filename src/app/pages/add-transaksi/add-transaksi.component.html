@@ -1,1 +1,147 @@
-<p>add-transaksi works!</p>
+<div class="card">
+    <div class="card-body">
+        <div class="mb-3 d-flex justify-content-between align-items-center">
+            <a routerLink=".." type="button" class="text-light btn-sm btn btn-success">
+                <i class="bi bi-caret-left"></i> Kembali
+            </a>
+            <button type="button" class="btn btn-primary btn-sm" (click)="openModal(addData)">
+                <i class="bi bi-plus"></i> Tambah
+            </button>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div>
+                    <h5 class="fw-bold total-title">TOTAL</h5>
+                    <h1 class="fw-bold text-danger text-end">{{ formatRp(getTotal()) }}</h1>
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+                <div>
+                    <h5 class="fw-bold total-title">KEMBALIAN</h5>
+                    <h1 class="fw-bold text-danger text-end">{{ formatRp(kembalian()) }}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive mt-4">
+    <table class="table table-bordered table-hover table-sm limit-tinggi">
+        <thead>
+            <tr class="text-primary" style="text-transform: uppercase;">
+                <th class="text-center">No</th>
+                <th>Judul</th>
+                <th class="text-center">Jumlah</th>
+                <th>Harga</th>
+                <th>Setelah Diskon</th>
+                <th class="text-center">Diskon</th>
+                <th>Subtotal</th>
+                <th class="text-center">Aksi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngIf="mainData.length; else dataFail">
+                <tr *ngFor="let data of mainData; index as i" class="text-info">
+                    <td class="text-center">{{ i + 1}}</td>
+                    <td>{{ data.judul }}</td>
+                    <td class="text-center">{{ data.jumlah }}</td>
+                    <td>{{ formatRp(data.harga) }}</td>
+                    <td>{{ formatRp(data.hargaSetelahDisc) }}</td>
+                    <td class="text-center">{{ data.diskon }} %</td>
+                    <td>{{ formatRp(data.subTotal) }}</td>
+                    <td class="text-center">
+                        <div class="btn-group">
+                            <button (click)="delData(data.id)" class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-container>
+
+            <ng-template #dataFail>
+                <tr class="text-info text-center">
+                    <td colspan="999">TIDAK ADA DATA</td>
+                </tr>
+            </ng-template>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #addData>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Tambah Data</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="addDataForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label class="form-label">Pilih Buku</label>
+                <select required formControlName="buku" class="form-control form-control-sm">
+                    <option *ngFor="let buku of dataBuku; index as i" value="{{ buku.id }}">
+                        {{ buku.judul }}
+                    </option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Harga</label>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text">Rp.</span>
+                    <input required readonly type="number" class="form-control form-control-sm" formControlName="harga">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Diskon Barang</label>
+                <div class="input-group input-group-sm">
+                    <input required readonly type="number" class="form-control form-control-sm"
+                        formControlName="diskon">
+                    <span class="input-group-text">%</span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="input-jumlah" class="form-label">Jumlah Beli</label>
+                <input required type="number" class="form-control form-control-sm" formControlName="jumlah"
+                    id="input-jumlah" min="1">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</ng-template>
+
+<div class="card mt-3">
+    <div class="card-body">
+        <div class="text-primary mb-3 fw-bold">
+            DATA PEMBELI
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="d-inline-block">
+                <label for="input-nama-pembeli" class="form-label text-info">Nama Pembeli :</label>
+                <input [formControl]="namaPembeli" id="input-nama-pembeli" type="text"
+                    class="d-block form-control form-control-sm limit-width">
+            </div>
+            <button class="ml-1 btn btn-primary btn-sm">
+                + Jadikan Member
+            </button>
+        </div>
+        <div class="d-block mt-2">
+            <label for="input-uang-pembeli" class="form-label text-info">Uang Pembayaran :</label>
+            <div class="input-group input-group-sm limit-width">
+                <span class="input-group-text">Rp.</span>
+                <input [formControl]="uangBayar" required id="input-uang-pembeli" type="number"
+                    class="d-block form-control form-control-sm" [min]="getTotal()">
+            </div>
+        </div>
+        <div class="mt-4">
+            <button class="d-inline mr-2 btn btn-primary">
+                Submit
+            </button>
+            <button class="d-inline ml-2 btn btn-success">
+                Pilih dari Member
+            </button>
+        </div>
+    </div>
+</div>
