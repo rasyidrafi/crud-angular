@@ -117,17 +117,8 @@
         <div class="text-primary mb-3 fw-bold">
             DATA PEMBELI
         </div>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="d-inline-block">
-                <label for="input-nama-pembeli" class="form-label text-info">Nama Pembeli :</label>
-                <input [formControl]="namaPembeli" id="input-nama-pembeli" type="text"
-                    class="d-block form-control form-control-sm limit-width">
-            </div>
-            <button class="ml-1 btn btn-primary btn-sm">
-                + Jadikan Member
-            </button>
-        </div>
-        <div class="d-block mt-2">
+
+        <div class="d-block mt-2 mb-2">
             <label for="input-uang-pembeli" class="form-label text-info">Uang Pembayaran :</label>
             <div class="input-group input-group-sm limit-width">
                 <span class="input-group-text">Rp.</span>
@@ -135,13 +126,74 @@
                     class="d-block form-control form-control-sm" [min]="getTotal()">
             </div>
         </div>
-        <div class="mt-4">
-            <button class="d-inline mr-2 btn btn-primary">
-                Submit
-            </button>
-            <button class="d-inline ml-2 btn btn-success">
-                Pilih dari Member
-            </button>
-        </div>
+
+        <ng-container *ngIf="member; else renderUnMember">
+
+            <ng-container *ngIf="memberData.length; else loadingMember">
+                <label class="form-label text-info">Nama Pembeli :</label>
+                <select required [formControl]="selectedMember" class="form-select">
+                    <option *ngFor="let thisMember of memberData; index as i" value="{{ thisMember.id }}">
+                        {{ thisMember.nama }} | Diskon {{ thisMember.diskon_member }}%
+                    </option>
+                  </select>
+            </ng-container>
+
+            <ng-template #loadingMember>
+                <div class="text-primary d-flex align-items-center">
+                    <strong>Mengambil Data...</strong>
+                    <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+                </div>
+            </ng-template>
+
+            <div class="mt-4">
+                <button (click)="selectRegular()" class="d-inline mr-2 btn btn-success">
+                    Kembali
+                </button>
+                <button (click)="submitMember()" class="d-inline ml-2 btn btn-primary">
+                    Submit
+                </button>
+            </div>
+        </ng-container>
+
+        <ng-template #renderUnMember>
+            
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-inline-block">
+                    <label for="input-nama-pembeli" class="form-label text-info">Nama Pembeli :</label>
+                    <input [formControl]="namaPembeli" required id="input-nama-pembeli" type="text"
+                        class="d-block form-control form-control-sm limit-width">
+                </div>
+                <button 
+                (click)="openMemberSwal()"
+                class="ml-1 btn btn-primary btn-sm">
+                    + Jadikan Member
+                </button>
+            </div>
+            <div class="mt-4">
+                <button (click)="confirmTransaksi()" class="d-inline mr-2 btn btn-primary">
+                    Submit
+                </button>
+                <button (click)="selectMember()" class="d-inline ml-2 btn btn-success">
+                    Pilih dari Member
+                </button>
+            </div>
+        </ng-template>
     </div>
 </div>
+
+<swal
+  #successSwal
+  title="Data Diinput"
+  text="Data berhasil dimasukkan"
+  icon="success">
+</swal>
+
+<swal
+  #confirmMember
+  title="Tambah Member"
+  inputValue="0"
+  input="number"
+  (confirm)="addMember($event)"
+  text="Masukkan diskon khusus untuk {{ namaPembeli.value }}"
+  icon="warning">
+</swal>

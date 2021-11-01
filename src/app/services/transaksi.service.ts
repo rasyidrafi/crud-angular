@@ -1,4 +1,3 @@
-const API_URL = "http://localhost:8080";
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
@@ -16,7 +15,7 @@ export class TransaksiService {
   }
 
   getTransaksi(){
-      return this.http.get<MODEL_TRANSAKSI.TransaksiModel>(URL_API.getTransaksi)
+      return this.http.get<MODEL_TRANSAKSI.TransaksiModel>(URL_API.restTransaksi)
       .pipe(catchError(
         (error) => {
           console.log(error);
@@ -33,5 +32,15 @@ export class TransaksiService {
           return throwError("Error while fetching database");
         }
       ))
+  }
+
+  addTransaksi(data: MODEL_TRANSAKSI.AddTransaksiBody) {
+    return this.http.post<MODEL_TRANSAKSI.AddTransaksiRes>(URL_API.restTransaksi, data)
+    .pipe(catchError(
+      (error) => {
+        console.log(error);
+        return throwError("Error while fetching database");
+      }
+    ))
   }
 }

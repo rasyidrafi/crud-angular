@@ -5,13 +5,9 @@
 $app->get("/buku", function ($req, $res) {
     require __DIR__ .  "/../config.php";
 
-    $data = $db->select("buku.id as id, judul, id_kategori, harga, diskon, stok, buku.created_at as created_at, nama_kategori, DATE(buku.created_at) as waktu")->from("buku")->innerJoin("kategori", "buku.id_kategori = kategori.id")->findAll();
-    $result = [
-        "status" => 200,
-        "data" => $data
-    ];
+    $data = $db->select("buku.id as id, judul, id_kategori, harga, diskon, stok, buku.created_at as created_at, nama_kategori, DATE(buku.created_at) as waktu")->from("buku")->innerJoin("kategori", "buku.id_kategori = kategori.id")->where("buku.is_delete", "=", 0)->findAll();
 
-    print_r(json_encode($result));
+    return successResponse($res, $data);
 });
 
 $app->post("/buku", function ($req, $res) {
@@ -22,20 +18,18 @@ $app->post("/buku", function ($req, $res) {
     $db->insert('buku', $parsedBody);
     $mergeCategory = $db->select()->from("buku")->leftJoin("kategori", "buku.id_kategori = kategori.id")->orderBy("buku.created_at DESC")->find();
 
-    $result = [
-        "status" => 200,
-        "data" => $mergeCategory
-    ];
-
-    print_r(json_encode($result));
+    return successResponse($res, $mergeCategory);
 });
 
 $app->delete("/buku/{id}", function ($req, $res, $args) {
     require __DIR__ .  "/../config.php";
     $bookId = $args["id"];
-    $resNya = $db->delete("buku", ['id' => $bookId]);
+    $updateData = [
+        "is_delete" => 1
+    ];
+    $resNya = $db->update('buku', $updateData, ['id' => $bookId]);
     
     $data = $resNya ? true : false;
-    print_r(json_encode(["data" => $data]));
 
+    return successResponse($res, $data);
 });

@@ -8,6 +8,7 @@ import { formatRupiah } from "../../../helper";
 })
 export class CardTransaksiComponent implements OnInit {
   @Input() isLimit: boolean = false;
+  @Input() readOnly: boolean = false;
   @Input() tableData: any = [];
 
   public formatRp = formatRupiah;

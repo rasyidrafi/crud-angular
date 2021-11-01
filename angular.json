@@ -129,5 +129,8 @@
       }
     }
   },
-  "defaultProject": "landa-books"
+  "defaultProject": "landa-books",
+  "cli": {
+    "analytics": false
+  }
 }

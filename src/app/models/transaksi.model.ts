@@ -3,6 +3,19 @@ export class TransaksiModel {
     data: []
 }
 
+export class AddTransaksiBody {
+    namaPembeli: string;
+    isMember: boolean;
+    idCustomer? :number;
+    uangBayar: number;
+    data: any;
+}
+
+export class AddTransaksiRes {
+    status: number;
+    data: any;
+}
+
 export class DetailTransaksiModel {
     status: number;
     data: {

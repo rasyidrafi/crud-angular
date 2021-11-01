@@ -1,4 +1,4 @@
-.limit-height {
+.limit-card {
     min-height: 156px;
     max-height: 400px;
     overflow-y: auto;

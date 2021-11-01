@@ -1,7 +1,7 @@
 <alert type="primary" class="text-center">
     <strong>TRANSAKSI TERAKHIR</strong>
 </alert>
-<app-card-transaksi [isLimit]="true" [tableData]="data" *ngIf="isFetched; else loadingTransaksi"></app-card-transaksi>
+<app-card-transaksi [readOnly]="true" [isLimit]="true" [tableData]="data" *ngIf="isFetched; else loadingTransaksi"></app-card-transaksi>
 
 <ng-template #loadingTransaksi>
     <div class="text-primary d-flex align-items-center">

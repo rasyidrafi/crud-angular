@@ -1,7 +1,15 @@
 <?php
-const ANGULAR_ROOT = __DIR__ . "/..";
+$ANGULAR_ROOT = __DIR__ . "/..";
 require __DIR__ . '/vendor/autoload.php';
-(\Dotenv\Dotenv::createImmutable(ANGULAR_ROOT)->load());
+(\Dotenv\Dotenv::createImmutable($ANGULAR_ROOT)->load());
+
+function successResponse($response, $message)
+{
+    return $response->write(json_encode([
+        'status_code' => 200,
+        'data' => $message,
+    ]))->withHeader('Content-Type', 'application/json')->withStatus(200);
+}
 
 $config = [
     'DB'            => [

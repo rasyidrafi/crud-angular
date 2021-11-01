@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-body" [ngClass]="{'limit-height' : isLimit}">
+    <div class="card-body" [ngClass]="{'limit-card' : isLimit}">
         <div class="d-flex justify-content-between align-items-center">
             <div class="text-primary fw-bold">
                 DATA TRANSAKSI
@@ -18,18 +18,18 @@
                         <th>Total Buku</th>
                         <th>Total Harga</th>
                         <th>Waktu</th>
-                        <th class="text-center">Aksi</th>
+                        <th class="text-center" *ngIf="!readOnly">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <ng-container *ngIf="tableData; else dataFail">
                         <tr class="text-info" *ngFor="let transaksi of tableData; index as i">
                             <td class="text-center">{{ i + 1}}</td>
-                            <td>{{ transaksi.nama }}</td>
+                            <td>{{ transaksi.nama_pembeli }}</td>
                             <td>{{ transaksi.total_buku }}</td>
                             <td>{{ formatRp(transaksi.total_harga) }}</td>
                             <td>{{ transaksi.waktu }}</td>
-                            <td class="text-center">
+                            <td *ngIf="!readOnly" class="text-center">
                                 <div class="btn-group">
                                     <button class="btn btn-outline-danger btn-sm">
                                         <i class="bi bi-trash"></i>
